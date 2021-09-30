@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card class="mt-4 text-center">
-      <v-card-title class="justify-content-center">
+      <v-card-title class="justify-center">
         Créer votre compte sans plus attendre
       </v-card-title>
       <v-card-text>
@@ -13,7 +13,7 @@
         confirmation.
       </v-card-text>
       <v-divider></v-divider>
-      <v-card-title class="justify-content-center"
+      <v-card-title class="justify-center"
         >Si vous possédez déjà un compte, connectez-vous.</v-card-title
       >
       <v-card-text

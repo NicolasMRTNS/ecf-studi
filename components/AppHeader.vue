@@ -5,7 +5,7 @@
     </section>
     <p class="text-center">
       Votre médiathèque est dans le regret de vous informer que nous sommes
-      actuellement fermés, en raison des mesures gouvernementales.
+      actuellement fermés en raison des mesures gouvernementales.
     </p>
     <p class="text-center">
       Nous restons cependant à votre disposition, en vous permettant l'accès

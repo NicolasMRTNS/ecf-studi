@@ -7,9 +7,9 @@ export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - mediatheque-la-chapelle-curreaux',
-    title: 'mediatheque-la-chapelle-curreaux',
+    title: 'Médiathèque | La Chapelle-Curreaux',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'fr',
     },
     meta: [
       { charset: 'utf-8' },
