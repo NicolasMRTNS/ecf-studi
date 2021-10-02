@@ -1,33 +1,40 @@
 export const state = () => ({
-  categories: ['roman', 'bande dessinés', 'manga', 'comics'],
+  categories: ['Roman', 'Bande dessinés', 'Manga', 'Comics'],
   books: [
     {
       id: 1,
       title: 'Le seigneur des anneaux',
       author: 'J.R.R. Tolkien',
-      category: 'roman',
+      category: 'Roman',
       available: true,
     },
     {
       id: 2,
       title: 'Harry Potter',
       author: 'J.K. Rowling',
-      category: 'roman',
+      category: 'Roman',
       available: true,
     },
     {
       id: 3,
       title: 'Les aventures de Tom Sawyer',
       author: 'Mark Twain',
-      category: 'bande dessinés',
+      category: 'Bande dessinés',
       available: true,
     },
     {
       id: 4,
       title: 'Le Petit Prince',
       author: 'Antoine de Saint-Exupéry',
-      category: 'roman',
+      category: 'Roman',
       available: false,
+    },
+    {
+      id: 5,
+      title: 'Dragon Ball',
+      author: 'Akira Toriyama',
+      category: 'Manga',
+      available: true,
     },
   ],
 })
