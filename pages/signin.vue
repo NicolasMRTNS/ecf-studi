@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="justify-center">Création de compte</v-card-title>
+    <v-card-title class="justify-center" style="word-break: break-word"
+      >Création de compte</v-card-title
+    >
     <v-card-text class="text-center"
       >Merci de bien vouloir remplir le formulaire ci-dessous pour vous
       inscrire</v-card-text
@@ -95,7 +97,9 @@
         </v-row>
       </v-container>
     </v-form>
-    <v-card-title class="justify-center">Déjà inscrit ?</v-card-title>
+    <v-card-title class="justify-center" style="word-break: break-word"
+      >Déjà inscrit ?</v-card-title
+    >
     <div class="text-center pb-5">
       <v-btn><nuxt-link exact to="/login">Se connecter</nuxt-link></v-btn>
     </div>
@@ -153,14 +157,15 @@ export default {
   methods: {
     validate() {
       if (this.valid) {
-        this.$store.dispatch('register', {
+        const payload = {
           firstname: this.firstname,
           lastname: this.lastname,
           email: this.email,
           birthDate: this.birthDate,
           address: this.address,
           password: this.password,
-        })
+        }
+        this.$store.dispatch('register', payload)
       }
     },
     reset() {

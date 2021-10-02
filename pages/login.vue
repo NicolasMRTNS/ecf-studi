@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="justify-center"> Connexion </v-card-title>
+    <v-card-title class="justify-center" style="word-break: break-word">
+      Connexion
+    </v-card-title>
     <v-form v-model="valid">
       <v-container>
         <v-row class="d-flex justify-center">
@@ -34,7 +36,9 @@
         </v-row>
       </v-container>
     </v-form>
-    <v-card-title class="justify-center">Pas encore inscrit ?</v-card-title>
+    <v-card-title class="justify-center" style="word-break: break-word"
+      >Pas encore inscrit ?</v-card-title
+    >
     <div class="text-center pb-5">
       <v-btn
         ><nuxt-link exact to="/signin">Se créer un compte</nuxt-link></v-btn
