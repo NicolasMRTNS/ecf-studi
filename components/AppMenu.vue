@@ -68,6 +68,10 @@ export default {
           name: 'Catalogue',
           page: '/catalog',
         },
+        {
+          name: 'Emprunts',
+          page: '/borrowed',
+        },
       ],
     }
   },

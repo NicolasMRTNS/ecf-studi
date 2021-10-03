@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="justify-center" style="word-break: break-word"
+    <v-card-title
+      class="justify-center text-center"
+      style="word-break: break-word"
       >Création de compte</v-card-title
     >
     <v-card-text class="text-center"
@@ -97,7 +99,9 @@
         </v-row>
       </v-container>
     </v-form>
-    <v-card-title class="justify-center" style="word-break: break-word"
+    <v-card-title
+      class="justify-center text-center"
+      style="word-break: break-word"
       >Déjà inscrit ?</v-card-title
     >
     <div class="text-center pb-5">

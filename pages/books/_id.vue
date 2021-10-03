@@ -26,8 +26,7 @@
               </v-card-subtitle>
               <v-card-text>
                 Date de parution :
-                {{ new Date(currentBook.publishingDate).toLocaleDateString()
-                }}<br />
+                {{ $moment(currentBook.publishingDate).format('LL') }}<br />
                 Genre :
                 {{ currentBook.category }}<br />
                 Disponibilité :
@@ -43,7 +42,7 @@
                 Description :
                 {{ currentBook.description }}<br />
                 Ajouté à la Médiathèque le
-                {{ new Date(currentBook.createdAt).toLocaleDateString() }}
+                {{ $moment(currentBook.createdAt).format('LL') }}
               </v-card-text>
             </v-col>
             <v-col cols="12" md="6">

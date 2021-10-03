@@ -1,6 +1,9 @@
 <template>
   <v-card>
-    <v-card-title class="justify-center" style="word-break: break-word">
+    <v-card-title
+      class="justify-center text-center"
+      style="word-break: break-word"
+    >
       Connexion
     </v-card-title>
     <v-form v-model="valid">
@@ -36,7 +39,9 @@
         </v-row>
       </v-container>
     </v-form>
-    <v-card-title class="justify-center" style="word-break: break-word"
+    <v-card-title
+      class="justify-center text-center"
+      style="word-break: break-word"
       >Pas encore inscrit ?</v-card-title
     >
     <div class="text-center pb-5">

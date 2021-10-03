@@ -38,6 +38,8 @@ export const state = () => ({
       description: 'Machin machin machin',
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
       createdAt: '2020-01-01',
+      borrowedDate: '2021-07-01',
+      dueDate: '2021-10-24',
     },
     {
       _id: '4',
@@ -62,6 +64,9 @@ export const state = () => ({
       description: 'Machin machin machin',
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
       createdAt: '2020-01-01',
+      borrowedDate: '2021-07-01',
+      retrievedDate: '2021-08-28',
+      dueDate: '2021-09-05',
     },
   ],
   currentUser: {

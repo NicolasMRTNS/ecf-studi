@@ -1,6 +1,9 @@
 <template>
   <v-card v-if="!getUserConnected" class="mt-4 text-center">
-    <v-card-title class="justify-center" style="word-break: break-word">
+    <v-card-title
+      class="justify-center text-center"
+      style="word-break: break-word"
+    >
       Créer votre compte sans plus attendre
     </v-card-title>
     <v-card-text>
@@ -15,7 +18,10 @@
       confirmation.
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-title class="justify-center" style="word-break: break-word">
+    <v-card-title
+      class="justify-center text-center"
+      style="word-break: break-word"
+    >
       Si vous possédez déjà un compte, connectez-vous.</v-card-title
     >
     <v-card-text
