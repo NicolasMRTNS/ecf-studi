@@ -8,7 +8,7 @@ export const state = () => ({
       category: 'Roman',
       available: true,
       borrowConfirmed: false,
-      publishedDate: '1954-01-01',
+      publishingDate: '1954-01-01',
       description:
         "Le seigneur des anneaux est un roman de fantasy écrit par l'auteur britannique J.R.R. Tolkien, publié en 1954.",
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
@@ -21,7 +21,7 @@ export const state = () => ({
       category: 'Roman',
       available: true,
       borrowConfirmed: false,
-      publishedDate: '1997-01-01',
+      publishingDate: '1997-01-01',
       description:
         "Harry Potter est un roman de fantasy écrit par l'auteur britannique J.K. Rowling, publié en 1997.",
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
@@ -34,7 +34,7 @@ export const state = () => ({
       category: 'Bande dessinés',
       available: false,
       borrowConfirmed: false,
-      publishedDate: '1876-01-01',
+      publishingDate: '1876-01-01',
       description: 'Machin machin machin',
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
       createdAt: '2020-01-01',
@@ -46,7 +46,7 @@ export const state = () => ({
       category: 'Roman',
       available: true,
       borrowConfirmed: false,
-      publishedDate: '1943-01-01',
+      publishingDate: '1943-01-01',
       description: 'Machin machin machin',
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
       createdAt: '2020-01-01',
@@ -58,7 +58,7 @@ export const state = () => ({
       category: 'Manga',
       available: false,
       borrowConfirmed: true,
-      publishedDate: '1986-01-01',
+      publishingDate: '1986-01-01',
       description: 'Machin machin machin',
       cover: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg',
       createdAt: '2020-01-01',
@@ -67,7 +67,7 @@ export const state = () => ({
   currentUser: {
     _id: '1',
     name: 'John Doe',
-    role: 'user',
+    role: 'employee',
   },
   isConnected: true,
 })

@@ -26,7 +26,7 @@
               </v-card-subtitle>
               <v-card-text>
                 Date de parution :
-                {{ new Date(currentBook.publishedDate).toLocaleDateString()
+                {{ new Date(currentBook.publishingDate).toLocaleDateString()
                 }}<br />
                 Genre :
                 {{ currentBook.category }}<br />
@@ -134,6 +134,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'auth',
+
   data() {
     return {
       id: this.$route.params.id,

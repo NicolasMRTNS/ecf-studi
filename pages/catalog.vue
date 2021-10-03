@@ -121,6 +121,8 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  middleware: 'auth',
+
   data: () => ({
     category: '',
     titleSearch: '',
@@ -140,7 +142,7 @@ export default {
     filterBookSelection() {
       const newBookSelection = []
       this.getBooks.forEach((book) => {
-        if (book.category === this.getCategory) {
+        if (book.category === this.category) {
           newBookSelection.push(book)
         }
       })

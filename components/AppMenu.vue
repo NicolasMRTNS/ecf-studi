@@ -3,7 +3,7 @@
     <v-menu transition="slide-y-transition" bottom>
       <template #activator="{ on, attrs }">
         <v-btn color="primary" dark v-bind="attrs" v-on="on">
-          Médiathèque
+          Menu Médiathèque
         </v-btn>
       </template>
       <v-list>
@@ -19,6 +19,16 @@
               :to="link.page"
               class="white--text text-decoration-underline"
               >{{ link.name }}</nuxt-link
+            ></v-list-item-title
+          >
+        </v-list-item>
+        <v-list-item v-if="getCurrentUser.role === 'employee'">
+          <v-list-item-title
+            ><nuxt-link
+              exact
+              to="/registerbook"
+              class="white--text text-decoration-underline"
+              >Enregistrer un ouvrage</nuxt-link
             ></v-list-item-title
           >
         </v-list-item>
@@ -63,7 +73,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getUserConnected']),
+    ...mapGetters(['getUserConnected', 'getCurrentUser']),
   },
 }
 </script>
