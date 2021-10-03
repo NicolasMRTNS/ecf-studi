@@ -6,7 +6,7 @@
     <v-row class="d-flex align-center">
       <v-col class="d-flex align-center" cols="12" sm="6">
         <v-select
-          :items="categories"
+          :items="getCategories"
           label="Catégories"
           dense
           outlined
@@ -118,7 +118,7 @@
 </template>
 
 <script setup>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
@@ -128,7 +128,7 @@ export default {
   }),
 
   mounted() {
-    this.bookSelection = this.books
+    this.bookSelection = this.getBooks
   },
 
   methods: {
@@ -139,8 +139,8 @@ export default {
 
     filterBookSelection() {
       const newBookSelection = []
-      this.books.forEach((book) => {
-        if (book.category === this.category) {
+      this.getBooks.forEach((book) => {
+        if (book.category === this.getCategory) {
           newBookSelection.push(book)
         }
       })
@@ -150,7 +150,7 @@ export default {
 
     searchByTitle() {
       const newBookSelection = []
-      this.books.forEach((book) => {
+      this.getBooks.forEach((book) => {
         if (book.title.toLowerCase().includes(this.titleSearch.toLowerCase())) {
           newBookSelection.push(book)
         }
@@ -161,19 +161,19 @@ export default {
 
     deleteTitleSearch() {
       this.titleSearch = ''
-      this.bookSelection = this.books
+      this.bookSelection = this.getBooks
       return this.bookSelection
     },
 
     deleteCategorySearch() {
       this.category = ''
-      this.bookSelection = this.books
+      this.bookSelection = this.getBooks
       return this.bookSelection
     },
   },
 
   computed: {
-    ...mapState(['categories', 'books']),
+    ...mapGetters(['getCategories', 'getBooks']),
   },
 }
 </script>

@@ -56,7 +56,7 @@
           </v-row>
           <v-row>
             <v-col
-              v-if="currentUser.role === 'user'"
+              v-if="getCurrentUser.role === 'user'"
               cols="12"
               class="text-center"
             >
@@ -79,7 +79,7 @@
             </v-col>
             <v-col
               v-if="
-                currentUser.role === 'employee' &&
+                getCurrentUser.role === 'employee' &&
                 !currentBook.available &&
                 !currentBook.borrowConfirmed
               "
@@ -102,7 +102,7 @@
             </v-col>
             <v-col
               v-if="
-                currentUser.role === 'employee' &&
+                getCurrentUser.role === 'employee' &&
                 !currentBook.available &&
                 currentBook.borrowConfirmed
               "
@@ -131,7 +131,7 @@
 </template>
 
 <script setup>
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -141,14 +141,14 @@ export default {
   },
 
   computed: {
-    ...mapState(['books', 'currentUser']),
+    ...mapGetters(['getBooks', 'getCurrentUser']),
 
     currentBook() {
       let result
       // Using a for loop so we can break once we find the book
-      for (let i = 0; i < this.books.length; i++) {
-        if (this.books[i]._id === this.id) {
-          result = this.books[i]
+      for (let i = 0; i < this.getBooks.length; i++) {
+        if (this.getBooks[i]._id === this.id) {
+          result = this.getBooks[i]
           break
         }
       }
@@ -160,7 +160,7 @@ export default {
     borrowBook() {
       const payload = {
         bookId: this.id,
-        userId: this.currentUser._id,
+        userId: this.getCurrentUser._id,
       }
       this.$store.dispatch('borrowBook', payload)
     },

@@ -101,7 +101,11 @@
       >Déjà inscrit ?</v-card-title
     >
     <div class="text-center pb-5">
-      <v-btn><nuxt-link exact to="/login">Se connecter</nuxt-link></v-btn>
+      <v-btn class="primary"
+        ><nuxt-link exact to="/login" class="white--text"
+          >Se connecter</nuxt-link
+        ></v-btn
+      >
     </div>
   </v-card>
 </template>

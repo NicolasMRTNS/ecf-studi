@@ -40,8 +40,10 @@
       >Pas encore inscrit ?</v-card-title
     >
     <div class="text-center pb-5">
-      <v-btn
-        ><nuxt-link exact to="/signin">Se créer un compte</nuxt-link></v-btn
+      <v-btn class="primary"
+        ><nuxt-link exact to="/signin" class="white--text"
+          >Se créer un compte</nuxt-link
+        ></v-btn
       >
     </div>
   </v-card>

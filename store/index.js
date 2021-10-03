@@ -69,7 +69,13 @@ export const state = () => ({
     name: 'John Doe',
     role: 'user',
   },
+  isConnected: true,
 })
-export const getters = () => ({})
+export const getters = {
+  getBooks: (state) => state.books,
+  getCategories: (state) => state.categories,
+  getCurrentUser: (state) => state.currentUser,
+  getUserConnected: (state) => state.isConnected,
+}
 export const mutations = () => ({})
 export const actions = () => ({})
