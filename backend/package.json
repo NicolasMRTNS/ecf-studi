@@ -1,0 +1,25 @@
+{
+  "name": "mediatheque-la-chapelle-curreaux-backend",
+  "version": "1.0.0",
+  "description": "Backend for the mediatheque project",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "backend",
+    "ecf",
+    "exam"
+  ],
+  "author": "Nicolas Martins",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
