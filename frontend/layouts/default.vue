@@ -2,6 +2,13 @@
   <v-app>
     <div class="content">
       <AppMenu />
+      <AppToast v-if="getSigninSuccess" :success="true"
+        >Votre inscription est bien enregistrée. Vous allez être
+        redirigé.</AppToast
+      >
+      <AppToast v-if="getError" :success="false">{{
+        getErrorMessage
+      }}</AppToast>
       <Nuxt />
     </div>
     <AppFooter />
@@ -9,12 +16,20 @@
 </template>
 
 <script>
-import AppMenu from '@/components/AppMenu.vue'
-import AppFooter from '@/components/AppFooter.vue'
+import { mapGetters } from 'vuex'
+import AppMenu from '@/components/AppMenu'
+import AppToast from '@/components/AppToast'
+import AppFooter from '@/components/AppFooter'
+
 export default {
   components: {
     AppMenu,
+    AppToast,
     AppFooter
+  },
+
+  computed: {
+    ...mapGetters(['getSigninSuccess', 'getError', 'getErrorMessage'])
   }
 }
 </script>

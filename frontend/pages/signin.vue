@@ -87,7 +87,11 @@
         </v-row>
         <v-row class="d-flex justify-center">
           <v-col cols="12" md="4" class="text-center">
-            <v-btn :disabled="!valid" color="success" @click.prevent="validate">
+            <v-btn
+              :disabled="!valid || getSigninSuccess"
+              color="success"
+              @click.prevent="validate"
+            >
               Valider
             </v-btn>
           </v-col>
@@ -115,7 +119,14 @@
 </template>
 
 <script setup>
+import { mapGetters } from 'vuex'
+import AppToast from '@/components/AppToast'
+
 export default {
+  components: {
+    AppToast
+  },
+
   data: () => ({
     valid: false,
     firstname: '',
@@ -155,6 +166,8 @@ export default {
   }),
 
   computed: {
+    ...mapGetters(['getSigninSuccess']),
+
     passwordConfirmationRule() {
       return () =>
         this.password === this.passwordConfirmation ||
@@ -173,9 +186,16 @@ export default {
           address: this.address,
           password: this.password
         }
-        this.$store.dispatch('register', payload)
+        this.$store.dispatch('signin', payload)
+        setTimeout(
+          function () {
+            this.redirect()
+          }.bind(this),
+          1000
+        )
       }
     },
+
     reset() {
       this.firstname = ''
       this.lastname = ''
@@ -184,6 +204,12 @@ export default {
       this.address = ''
       this.password = ''
       this.passwordConfirmation = ''
+    },
+
+    redirect() {
+      if (this.getSigninSuccess) {
+        this.$router.push('/')
+      }
     }
   }
 }
