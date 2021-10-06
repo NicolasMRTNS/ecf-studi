@@ -8,12 +8,12 @@ const bookSchema = new mongoose.Schema({
   author: { type: String, required: true },
   category: { type: String, required: true },
   addedDate: { type: String, required: true },
-  available: { type: Boolean, required: false, default: false },
-  borrowedDate: { type: Date, required: false, default: '' },
-  borrowConfirmed: { type: Boolean, required: false, default: false },
-  borrowedBy: { type: String, required: false, default: '' },
-  retrievedDate: { type: Date, required: false, default: '' },
-  dueDate: { type: Date, required: false, default: '' }
+  available: { type: Boolean, required: true, default: true },
+  borrowedDate: { type: Date, required: true, default: '' },
+  borrowConfirmed: { type: Boolean, required: true, default: false },
+  borrowedBy: { type: String, required: true, default: '' },
+  retrievedDate: { type: Date, required: true, default: '' },
+  dueDate: { type: Date, required: true, default: '' }
 })
 
 module.exports = mongoose.model('Book', bookSchema)

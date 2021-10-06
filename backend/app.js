@@ -1,6 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
+const bookRoutes = require('./routes/book')
+const userRoutes = require('./routes/user')
 
 const app = express()
 
@@ -28,5 +30,8 @@ app.use((_req, res, next) => {
 })
 
 app.use(express.json())
+
+app.use('/api/books', bookRoutes)
+app.use('/api/users', userRoutes)
 
 module.exports = app
