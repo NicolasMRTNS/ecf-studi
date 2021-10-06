@@ -20,7 +20,7 @@
 
 <script setup>
 export default {
-  name: 'AppHeader',
+  name: 'AppHeader'
 }
 </script>
 

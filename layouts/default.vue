@@ -14,8 +14,8 @@ import AppFooter from '@/components/AppFooter.vue'
 export default {
   components: {
     AppMenu,
-    AppFooter,
-  },
+    AppFooter
+  }
 }
 </script>
 

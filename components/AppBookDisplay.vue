@@ -2,14 +2,7 @@
   <v-container fluid>
     <v-row dense>
       <v-col v-for="book in bookselection" :key="book.id" lg="3" md="6" sm="6">
-        <v-card
-          :style="
-            getCurrentUser.role === 'employee' &&
-            $moment(book.dueDate).unix() <= $moment().unix()
-              ? 'background-color: #FFBF00'
-              : ''
-          "
-        >
+        <v-card>
           <v-img
             :src="book.cover"
             :class="
@@ -27,8 +20,19 @@
             <v-card-text v-text="book.category"></v-card-text>
           </v-img>
           <v-card-actions>
-            <v-card-text v-if="!book.available" class="py-0 warning--text"
+            <v-card-text
+              v-if="!book.available && borrowedpage === false"
+              class="py-0 warning--text"
               >Ouvrage indisponible</v-card-text
+            >
+            <v-card-text
+              v-if="borrowedpage === true"
+              :class="
+                $moment(book.dueDate).unix() <= $moment().unix()
+                  ? 'warning--text'
+                  : 'white--text'
+              "
+              >À rendre le {{ $moment(book.dueDate).format('LL') }}</v-card-text
             >
             <v-spacer></v-spacer>
             <v-tooltip bottom>
@@ -57,6 +61,10 @@ export default {
     bookselection: {
       type: Array,
       required: true,
+    },
+    borrowedpage: {
+      type: Boolean,
+      required: false,
     },
   },
 

@@ -48,37 +48,37 @@ export default {
       notConnectedLinks: [
         {
           name: 'Accueil',
-          page: '/',
+          page: '/'
         },
         {
           name: 'Connexion',
-          page: '/login',
+          page: '/login'
         },
         {
           name: 'Inscription',
-          page: '/signin',
-        },
+          page: '/signin'
+        }
       ],
       connectedLinks: [
         {
           name: 'Accueil',
-          page: '/',
+          page: '/'
         },
         {
           name: 'Catalogue',
-          page: '/catalog',
+          page: '/catalog'
         },
         {
           name: 'Emprunts',
-          page: '/borrowed',
-        },
-      ],
+          page: '/borrowed'
+        }
+      ]
     }
   },
 
   computed: {
-    ...mapGetters(['getUserConnected', 'getCurrentUser']),
-  },
+    ...mapGetters(['getUserConnected', 'getCurrentUser'])
+  }
 }
 </script>
 

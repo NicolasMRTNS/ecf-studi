@@ -122,36 +122,36 @@ export default {
     lastname: '',
     nameRules: [
       (v) => !!v || 'Le nom est obligatoire',
-      (v) => /^[A-Z]+$/i.test(v) || 'Le nom ne peut contenir que des lettres',
+      (v) => /^[A-Z]+$/i.test(v) || 'Le nom ne peut contenir que des lettres'
     ],
     email: '',
     emailRules: [
       (v) => !!v || "L'e-mail est obligatoire.",
-      (v) => /.+@.+/.test(v) || 'Format invalide',
+      (v) => /.+@.+/.test(v) || 'Format invalide'
     ],
     birthDate: '',
     birthDateRules: [
       (v) => !!v || 'La date de naissance est obligatoire',
-      (v) => /^\d{4}-\d{2}-\d{2}$/.test(v) || 'Format invalide (JJ/MM/AAAA)',
+      (v) => /^\d{4}-\d{2}-\d{2}$/.test(v) || 'Format invalide (JJ/MM/AAAA)'
     ],
     address: '',
     addressRules: [
       (v) => !!v || "L'adresse est obligatoire.",
       (v) =>
         /.+\d{5}.+/.test(v) ||
-        "L'adresse doit contenir un code postal de 5 chiffres",
+        "L'adresse doit contenir un code postal de 5 chiffres"
     ],
     password: '',
     passwordRules: [
       (v) => !!v || 'Le mot de passe est obligatoire',
       (v) =>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(v) ||
-        'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre',
+        'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre'
     ],
     passwordConfirmation: '',
     passwordConfirmationRules: [
-      (v) => !!v || 'La confirmation du mot de passe est obligatoire',
-    ],
+      (v) => !!v || 'La confirmation du mot de passe est obligatoire'
+    ]
   }),
 
   computed: {
@@ -159,7 +159,7 @@ export default {
       return () =>
         this.password === this.passwordConfirmation ||
         'Les mots de passes doivent être identiques'
-    },
+    }
   },
 
   methods: {
@@ -171,7 +171,7 @@ export default {
           email: this.email,
           birthDate: this.birthDate,
           address: this.address,
-          password: this.password,
+          password: this.password
         }
         this.$store.dispatch('register', payload)
       }
@@ -184,8 +184,8 @@ export default {
       this.address = ''
       this.password = ''
       this.passwordConfirmation = ''
-    },
-  },
+    }
+  }
 }
 </script>
 

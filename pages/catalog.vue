@@ -81,13 +81,13 @@ export default {
   middleware: 'auth',
 
   components: {
-    AppBookDisplay,
+    AppBookDisplay
   },
 
   data: () => ({
     category: '',
     titleSearch: '',
-    bookSelection: [],
+    bookSelection: []
   }),
 
   mounted() {
@@ -132,12 +132,12 @@ export default {
       this.category = ''
       this.bookSelection = this.getBooks
       return this.bookSelection
-    },
+    }
   },
 
   computed: {
-    ...mapGetters(['getCategories', 'getBooks']),
-  },
+    ...mapGetters(['getCategories', 'getBooks'])
+  }
 }
 </script>
 

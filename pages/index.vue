@@ -10,7 +10,7 @@ import AppHeader from '@/components/AppHeader.vue'
 import AppPresentation from '~/components/AppPresentation.vue'
 
 export default {
-  components: { AppPresentation, AppHeader },
+  components: { AppPresentation, AppHeader }
 }
 </script>
 

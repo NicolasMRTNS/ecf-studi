@@ -11,7 +11,7 @@
 
 <script setup>
 export default {
-  name: 'AppFooter',
+  name: 'AppFooter'
 }
 </script>
 

@@ -114,7 +114,7 @@ export default {
         (v) => !!v || 'La date de publication est obligatoire.',
         (v) =>
           /^\d{4}-\d{2}-\d{2}$/.test(v) ||
-          'La date de publication est invalide.',
+          'La date de publication est invalide.'
       ],
       category: '',
       image: null,
@@ -123,8 +123,8 @@ export default {
         (v) => !!v || "L'image est obligatoire.",
         (v) =>
           this.imageFileExtensions.includes(v?.name.split('.').pop()) ||
-          "L'image doit être au format jpg, jpeg, png ou gif.",
-      ],
+          "L'image doit être au format jpg, jpeg, png ou gif."
+      ]
     }
   },
 
@@ -150,16 +150,16 @@ export default {
           description: this.description,
           publishingDate: this.publishingDate,
           category: this.category,
-          cover: this.image,
+          cover: this.image
         }
         this.$store.dispatch('registerNewBook', payload)
       }
-    },
+    }
   },
 
   computed: {
-    ...mapGetters(['getCategories', 'getCurrentUser', 'getUserConnected']),
-  },
+    ...mapGetters(['getCategories', 'getCurrentUser', 'getUserConnected'])
+  }
 }
 </script>
 

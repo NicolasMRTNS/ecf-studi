@@ -61,15 +61,15 @@ export default {
     email: '',
     emailRules: [
       (v) => !!v || "L'e-mail est obligatoire.",
-      (v) => /.+@.+/.test(v) || 'Format invalide',
+      (v) => /.+@.+/.test(v) || 'Format invalide'
     ],
     password: '',
     passwordRules: [
       (v) => !!v || 'Le mot de passe est obligatoire',
       (v) =>
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(v) ||
-        'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre',
-    ],
+        'Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre'
+    ]
   }),
 
   methods: {
@@ -77,11 +77,11 @@ export default {
       if (this.valid) {
         this.$store.dispatch('login', {
           email: this.email,
-          password: this.password,
+          password: this.password
         })
       }
-    },
-  },
+    }
+  }
 }
 </script>
 

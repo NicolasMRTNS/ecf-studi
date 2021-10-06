@@ -57,8 +57,8 @@ export default {
   name: 'AppPresentation',
 
   computed: {
-    ...mapGetters(['getUserConnected']),
-  },
+    ...mapGetters(['getUserConnected'])
+  }
 }
 </script>
 

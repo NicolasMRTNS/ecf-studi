@@ -42,7 +42,13 @@
                 Description :
                 {{ currentBook.description }}<br />
                 Ajouté à la Médiathèque le
-                {{ $moment(currentBook.createdAt).format('LL') }}
+                {{ $moment(currentBook.createdAt).format('LL') }}<br />
+                <span
+                  v-if="!currentBook.available && currentBook.dueDate != null"
+                  class="font-italic"
+                  >Retour d'emprunt le
+                  {{ $moment(currentBook.dueDate).format('LL') }}</span
+                >
               </v-card-text>
             </v-col>
             <v-col cols="12" md="6">
@@ -137,7 +143,7 @@ export default {
 
   data() {
     return {
-      id: this.$route.params.id,
+      id: this.$route.params.id
     }
   },
 
@@ -154,14 +160,14 @@ export default {
         }
       }
       return result
-    },
+    }
   },
 
   methods: {
     borrowBook() {
       const payload = {
         bookId: this.id,
-        userId: this.getCurrentUser._id,
+        userId: this.getCurrentUser._id
       }
       this.$store.dispatch('borrowBook', payload)
     },
@@ -172,8 +178,8 @@ export default {
 
     confirmBookReturned() {
       this.$store.dispatch('confirmBookReturned', this.id)
-    },
-  },
+    }
+  }
 }
 </script>
 
