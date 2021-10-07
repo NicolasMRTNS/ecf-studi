@@ -11,7 +11,8 @@ export const state = () => ({
   token: null,
   error: false,
   errorMessage: null,
-  signinSuccess: false
+  signinSuccess: false,
+  bookRegisteredMessage: ''
 })
 
 export const getters = {
@@ -26,12 +27,17 @@ export const getters = {
   getAuthenticated: (state) => !!state.token,
   getError: (state) => state.error,
   getErrorMessage: (state) => state.errorMessage,
-  getSigninSuccess: (state) => state.signinSuccess
+  getSigninSuccess: (state) => state.signinSuccess,
+  getBookRegisteredMessage: (state) => state.bookRegisteredMessage,
+  getBookRegistered: (state) => !!state.bookRegisteredMessage
 }
 
 export const mutations = {
-  setBooks(state, data) {
-    state.books = data
+  setBooks(state, response) {
+    state.books = response.data
+  },
+  setBookRegistered(state, response) {
+    state.bookRegisteredMessage = response.data.message
   },
   errorLog(state, error) {
     state.error = true
@@ -41,6 +47,7 @@ export const mutations = {
     state.error = false
     state.errorMessage = null
     state.userValidatedMessage = ''
+    state.bookRegisteredMessage = ''
   },
   setCurrentUser(state, response) {
     state.currentUser = response.data.user
@@ -99,7 +106,8 @@ export const actions = {
       commit('resetErrorLog')
       await this.$axios
         .post(booksAPI, payload)
-        .then(() => {
+        .then((response) => {
+          commit('setBookRegistered', response)
           dispatch('getAllBooks')
         })
         .catch((error) => {

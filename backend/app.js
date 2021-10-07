@@ -32,7 +32,7 @@ app.use((_req, res, next) => {
 
 app.use(express.json())
 
-app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use('/covers', express.static(path.join(__dirname, 'covers')))
 app.use('/api/books', bookRoutes)
 app.use('/api/users', userRoutes)
 

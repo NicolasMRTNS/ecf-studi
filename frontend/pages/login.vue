@@ -92,7 +92,7 @@ export default {
 
     redirect() {
       if (this.getUserConnected) {
-        this.$router.push('/catalog')
+        this.$router.push('/')
       }
     }
   },

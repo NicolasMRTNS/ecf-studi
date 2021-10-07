@@ -9,7 +9,7 @@
       >Pour ajouter un ouvrage au catalogue de la médiathèque, merci de remplir
       ce formulaire.</v-card-text
     >
-    <v-form v-model="valid">
+    <v-form ref="form" v-model="valid">
       <v-container>
         <v-row>
           <v-col cols="12" md="4">
@@ -64,6 +64,7 @@
             <v-file-input
               v-model="image"
               :rules="imageRules"
+              name="cover"
               small-chips
               label="Ajouter une image"
               show-size
@@ -134,25 +135,21 @@ export default {
     },
 
     reset() {
-      this.title = ''
-      this.author = ''
-      this.description = ''
-      this.publishingDate = ''
-      this.category = ''
-      this.image = null
+      this.$refs.form.reset()
     },
 
     registerNewBook() {
       if (this.valid) {
-        const payload = {
-          title: this.title,
-          author: this.author,
-          description: this.description,
-          publishingDate: this.publishingDate,
-          category: this.category,
-          cover: this.image
-        }
+        // Using formData to send the image
+        const payload = new FormData()
+        payload.append('title', this.title)
+        payload.append('author', this.author)
+        payload.append('description', this.description)
+        payload.append('publishingDate', this.publishingDate)
+        payload.append('category', this.category)
+        payload.append('cover', this.image)
         this.$store.dispatch('registerNewBook', payload)
+        this.reset()
       }
     }
   },

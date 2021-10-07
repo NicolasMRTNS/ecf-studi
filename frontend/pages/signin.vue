@@ -9,7 +9,7 @@
       >Merci de bien vouloir remplir le formulaire ci-dessous pour vous
       inscrire</v-card-text
     >
-    <v-form v-model="valid">
+    <v-form ref="format" v-model="valid">
       <v-container>
         <v-row>
           <v-col cols="12" md="4">
@@ -197,13 +197,7 @@ export default {
     },
 
     reset() {
-      this.firstname = ''
-      this.lastname = ''
-      this.email = ''
-      this.birthDate = ''
-      this.address = ''
-      this.password = ''
-      this.passwordConfirmation = ''
+      this.$refs.form.reset()
     },
 
     redirect() {

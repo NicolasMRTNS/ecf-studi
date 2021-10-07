@@ -18,17 +18,16 @@ exports.getAllBooks = (_req, res, _next) => {
 exports.registerBook = (req, res, _next) => {
   const book = new Book({
     ...req.body,
-    cover: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    addedDate: moment().format('DD/MM/YYYY'),
+    cover: `${req.protocol}://${req.get('host')}/covers/${req.file.filename}`
   })
   return book
     .save()
     .then(() => {
       res.status(201).json({ message: 'Ouvrage enregistré avec succès' })
     })
-    .catch((err) => {
-      res.status(500).json({
-        error: err
-      })
+    .catch((error) => {
+      res.status(500).json({ error })
     })
 }
 

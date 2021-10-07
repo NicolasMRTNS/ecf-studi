@@ -12,6 +12,9 @@
       <AppToast v-if="getUserValidated" :success="true">
         {{ getUserValidatedMessage }}
       </AppToast>
+      <AppToast v-if="getBookRegistered" :success="true">
+        {{ getBookRegisteredMessage }}
+      </AppToast>
       <AppToast v-if="getError" :success="false">{{
         getErrorMessage
       }}</AppToast>
@@ -42,6 +45,8 @@ export default {
       'getUserConnected',
       'getUserValidated',
       'getUserValidatedMessage',
+      'getBookRegisteredMessage',
+      'getBookRegistered',
       'getError',
       'getErrorMessage'
     ])
