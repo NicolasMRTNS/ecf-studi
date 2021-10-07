@@ -1,24 +1,42 @@
 <template>
   <v-container fluid>
     <v-row dense>
-      <v-col v-for="book in bookselection" :key="book.id" lg="3" md="6" sm="6">
-        <v-card>
-          <v-img
-            :src="book.cover"
-            :class="
-              book.available ? 'white--text align-end' : 'grey--text align-end'
-            "
-            :alt="`Couverture de ${book.title}`"
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-            height="200px"
-          >
-            <v-card-title
-              style="word-break: break-word"
-              v-text="book.title"
-            ></v-card-title>
-            <v-card-subtitle v-text="book.author"></v-card-subtitle>
-            <v-card-text v-text="book.category"></v-card-text>
-          </v-img>
+      <v-col
+        v-for="book in bookselection"
+        :key="book.id"
+        lg="3"
+        md="4"
+        sm="6"
+        class="d-flex flex-column align-center"
+      >
+        <v-card width="310px" elevation="18">
+          <div class="d-flex">
+            <v-img
+              :src="book.cover"
+              :alt="`Couverture de ${book.title}`"
+              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              height="200px"
+              max-width="150px"
+              class="ml-2"
+            >
+            </v-img>
+            <v-spacer></v-spacer>
+            <div
+              :class="
+                book.available
+                  ? 'white--text align-end'
+                  : 'grey--text align-end'
+              "
+              class="mr-2"
+            >
+              <v-card-title
+                style="word-break: break-word"
+                v-text="book.title"
+              ></v-card-title>
+              <v-card-subtitle v-text="book.author"></v-card-subtitle>
+              <v-card-text v-text="book.category"></v-card-text>
+            </div>
+          </div>
           <v-card-actions>
             <v-card-text
               v-if="!book.available && borrowedpage === false"
@@ -26,7 +44,7 @@
               >Ouvrage indisponible</v-card-text
             >
             <v-card-text
-              v-if="borrowedpage === true"
+              v-if="borrowedpage && book.borrowConfirmed"
               :class="
                 $moment(book.dueDate).unix() <= $moment().unix()
                   ? 'warning--text'
@@ -34,6 +52,10 @@
               "
               >À rendre le {{ $moment(book.dueDate).format('LL') }}</v-card-text
             >
+            <v-card-text v-if="borrowedpage && book.borrowedDate != null">
+              À récupérer avant le
+              {{ $moment(book.borrowedDate).add(3, 'days').format('LL') }}
+            </v-card-text>
             <v-spacer></v-spacer>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
@@ -60,17 +82,17 @@ export default {
   props: {
     bookselection: {
       type: Array,
-      required: true,
+      required: true
     },
     borrowedpage: {
       type: Boolean,
-      required: false,
-    },
+      required: false
+    }
   },
 
   computed: {
-    ...mapGetters(['getCurrentUser']),
-  },
+    ...mapGetters(['getCurrentUser'])
+  }
 }
 </script>
 

@@ -1,17 +1,22 @@
 const Book = require('../models/Book')
 const moment = require('moment')
+const mongoose = require('mongoose')
 
 // GET /books
 exports.getAllBooks = (_req, res, _next) => {
   Book.find()
     .then((books) => {
+      books.forEach((book) => {
+        if (moment(book.borrowedDate).unix() <= moment().unix()) {
+          book.borrowedDate = null
+          book.available = true
+          book.borrowedBy = null
+          book.updateOne(book)
+        }
+      })
       res.status(200).json(books)
     })
-    .catch((err) => {
-      res.status(500).json({
-        error: err
-      })
-    })
+    .catch((error) => res.status(500).json({ error }))
 }
 
 // POST /books
@@ -31,33 +36,29 @@ exports.registerBook = (req, res, _next) => {
     })
 }
 
-// PUT /books/:id user borrow
+// PUT /books/:id/borrow user borrow
 exports.borrowBook = (req, res, _next) => {
-  Book.findById(req.params.id)
+  Book.findById(req.body.bookId)
     .then((book) => {
       book.available = false
-      book.borrowedDate = moment().format('DD/MM/YYYY')
+      book.borrowedDate = moment().format('YYYY-MM-DD')
       book.borrowedBy = req.body.userId
-      return book.save()
+      return book.updateOne(book)
     })
     .then(() => {
-      res.status(200).json({ message: 'Ouvrage emprunté avec succès' })
+      res.status(200).json({ message: 'Ouvrage emprunté avec succès.' })
     })
-    .catch((err) => {
-      res.status(500).json({
-        error: err
-      })
-    })
+    .catch((error) => res.status(500).json({ error }))
 }
 
-// PUT /books/:id employee confirm
+// PUT /books/:id/retrieve employee confirm
 exports.retrieveBook = (req, res, _next) => {
   Book.findById(req.params.id)
     .then((book) => {
-      book.retrievedDate = moment().format('DD/MM/YYYY')
+      book.retrievedDate = moment().format('YYYY-MM-DD')
       book.borrowConfirmed = true
-      book.dueDate = moment().add(3, 'weeks').format('DD/MM/YYYY')
-      return book.save()
+      book.dueDate = moment().add(3, 'weeks').format('YYYY-MM-DD')
+      return book.updateOne(book)
     })
     .then(() => {
       res.status(200).json({ message: 'Ouvrage retiré avec succès' })
@@ -69,7 +70,7 @@ exports.retrieveBook = (req, res, _next) => {
     })
 }
 
-// PUT /books/:id book return
+// PUT /books/:id/return book return
 exports.returnBook = (req, res, _next) => {
   Book.findById(req.params.id)
     .then((book) => {

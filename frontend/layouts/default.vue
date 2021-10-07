@@ -15,6 +15,9 @@
       <AppToast v-if="getBookRegistered" :success="true">
         {{ getBookRegisteredMessage }}
       </AppToast>
+      <AppToast v-if="getBorrowBook" :success="true">
+        {{ getBorrowBookMessage }}
+      </AppToast>
       <AppToast v-if="getError" :success="false">{{
         getErrorMessage
       }}</AppToast>
@@ -43,10 +46,12 @@ export default {
     ...mapGetters([
       'getSigninSuccess',
       'getUserConnected',
-      'getUserValidated',
       'getUserValidatedMessage',
+      'getUserValidated',
       'getBookRegisteredMessage',
       'getBookRegistered',
+      'getBorrowBookMessage',
+      'getBorrowBook',
       'getError',
       'getErrorMessage'
     ])

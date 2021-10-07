@@ -12,7 +12,8 @@ export const state = () => ({
   error: false,
   errorMessage: null,
   signinSuccess: false,
-  bookRegisteredMessage: ''
+  bookRegisteredMessage: '',
+  borrowBookMessage: ''
 })
 
 export const getters = {
@@ -29,7 +30,9 @@ export const getters = {
   getErrorMessage: (state) => state.errorMessage,
   getSigninSuccess: (state) => state.signinSuccess,
   getBookRegisteredMessage: (state) => state.bookRegisteredMessage,
-  getBookRegistered: (state) => !!state.bookRegisteredMessage
+  getBookRegistered: (state) => !!state.bookRegisteredMessage,
+  getBorrowBookMessage: (state) => state.borrowBookMessage,
+  getBorrowBook: (state) => !!state.borrowBookMessage
 }
 
 export const mutations = {
@@ -38,6 +41,9 @@ export const mutations = {
   },
   setBookRegistered(state, response) {
     state.bookRegisteredMessage = response.data.message
+  },
+  setBorrowBookConfirmed(state, response) {
+    state.borrowBookMessage = response.data.message
   },
   errorLog(state, error) {
     state.error = true
@@ -48,6 +54,7 @@ export const mutations = {
     state.errorMessage = null
     state.userValidatedMessage = ''
     state.bookRegisteredMessage = ''
+    state.borrowBookMessage = ''
   },
   setCurrentUser(state, response) {
     state.currentUser = response.data.user
@@ -115,12 +122,13 @@ export const actions = {
         })
     }
   },
-  async login({ commit }, payload) {
+  async login({ commit, dispatch }, payload) {
     commit('resetErrorLog')
     await this.$axios
       .post(`${usersAPI}/login`, payload)
       .then((userData) => {
         commit('setCurrentUser', userData)
+        dispatch('getAllBooks')
       })
       .catch((error) => {
         commit('errorLog', error.response.data.message)
@@ -153,6 +161,20 @@ export const actions = {
         .then((response) => {
           dispatch('getNotValidatedUsers')
           commit('setUserValidated', response)
+        })
+        .catch((error) => {
+          commit('errorLog', error.response.data.message)
+        })
+    }
+  },
+  async borrowBook({ commit, dispatch }, payload) {
+    if (this.getters.getAuthenticated) {
+      commit('resetErrorLog')
+      await this.$axios
+        .put(`${booksAPI}/${payload.bookId}/borrow`, payload)
+        .then((response) => {
+          dispatch('getAllBooks')
+          commit('setBorrowBookConfirmed', response)
         })
         .catch((error) => {
           commit('errorLog', error.response.data.message)
