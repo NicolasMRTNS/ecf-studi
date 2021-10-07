@@ -5,6 +5,8 @@ export const state = () => ({
   categories: ['Roman', 'Bande dessinés', 'Manga', 'Comics'],
   books: [],
   currentUser: {},
+  notValidatedUsers: [],
+  userValidatedMessage: '',
   isConnected: false,
   token: null,
   error: false,
@@ -17,6 +19,9 @@ export const getters = {
   getCategories: (state) => state.categories,
   getCurrentUser: (state) => state.currentUser,
   getUserConnected: (state) => state.isConnected,
+  getNotValidatedUsers: (state) => state.notValidatedUsers,
+  getUserValidatedMessage: (state) => state.userValidatedMessage,
+  getUserValidated: (state) => !!state.userValidatedMessage,
   getToken: (state) => state.token,
   getAuthenticated: (state) => !!state.token,
   getError: (state) => state.error,
@@ -35,11 +40,18 @@ export const mutations = {
   resetErrorLog(state) {
     state.error = false
     state.errorMessage = null
+    state.userValidatedMessage = ''
   },
   setCurrentUser(state, response) {
     state.currentUser = response.data.user
     state.token = response.data.token
     state.isConnected = true
+  },
+  setNotValidatedUsers(state, response) {
+    state.notValidatedUsers = response.data.users
+  },
+  setUserValidated(state, response) {
+    state.userValidatedMessage = response.data.message
   },
   newUserSignin(state) {
     state.signinSuccess = true
@@ -61,6 +73,23 @@ export const actions = {
         })
     }
   },
+  async getNotValidatedUsers({ commit }) {
+    if (
+      this.getters.getAuthenticated &&
+      this.getters.getCurrentUser.role === 'employee'
+    ) {
+      commit('resetErrorLog')
+      await this.$axios
+        .get(`${usersAPI}/notvalidatedusers`)
+        .then((data) => {
+          commit('setNotValidatedUsers', data)
+        })
+        .catch((error) => {
+          commit('errorLog', error)
+        })
+    }
+  },
+
   // POST routes
   async registerNewBook({ dispatch, commit }, payload) {
     if (
@@ -103,6 +132,23 @@ export const actions = {
           commit('errorLog', error.response.data.message)
         }
       })
-  }
+  },
   // PUT routes
+  async validateSignin({ commit, dispatch }, userId) {
+    if (
+      this.getters.getAuthenticated &&
+      this.getters.getCurrentUser.role === 'employee'
+    ) {
+      commit('resetErrorLog')
+      await this.$axios
+        .put(`${usersAPI}/${userId}/update`, { userId })
+        .then((response) => {
+          dispatch('getNotValidatedUsers')
+          commit('setUserValidated', response)
+        })
+        .catch((error) => {
+          commit('errorLog', error.response.data.message)
+        })
+    }
+  }
 }

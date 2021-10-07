@@ -7,7 +7,7 @@
     @click="close()"
   >
     <slot></slot>
-    (Cliquer pour faire disparaître)
+    (Cliquez pour faire disparaître)
   </v-alert>
 </template>
 

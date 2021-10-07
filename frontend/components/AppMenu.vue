@@ -32,6 +32,16 @@
             ></v-list-item-title
           >
         </v-list-item>
+        <v-list-item v-if="getCurrentUser.role === 'employee'">
+          <v-list-item-title
+            ><nuxt-link
+              exact
+              to="/validatesignins"
+              class="white--text text-decoration-underline"
+              >Valider inscriptions</nuxt-link
+            ></v-list-item-title
+          >
+        </v-list-item>
       </v-list>
     </v-menu>
   </v-card>

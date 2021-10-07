@@ -9,6 +9,9 @@
       <AppToast v-if="getUserConnected" :success="true"
         >Vous êtes maintenant connecté.</AppToast
       >
+      <AppToast v-if="getUserValidated" :success="true">
+        {{ getUserValidatedMessage }}
+      </AppToast>
       <AppToast v-if="getError" :success="false">{{
         getErrorMessage
       }}</AppToast>
@@ -37,6 +40,8 @@ export default {
     ...mapGetters([
       'getSigninSuccess',
       'getUserConnected',
+      'getUserValidated',
+      'getUserValidatedMessage',
       'getError',
       'getErrorMessage'
     ])

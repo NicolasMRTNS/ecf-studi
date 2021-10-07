@@ -1,6 +1,14 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const mongoose = require('mongoose')
+
+// GET not validated users
+exports.getNotValidatedUsers = (_req, res, _next) => {
+  User.find({ role: 'not-validated-user' })
+    .then((users) => res.status(200).json({ users }))
+    .catch((error) => res.status(500).json({ error }))
+}
 
 // POST signin
 exports.signin = (req, res, _next) => {
@@ -59,10 +67,10 @@ exports.login = (req, res, _next) => {
 
 // PUT update user
 exports.update = (req, res, _next) => {
-  User.findById({ _id: req.params.id })
+  User.findById({ _id: mongoose.mongo.ObjectId(req.body.userId) })
     .then((user) => {
       user.role = 'user'
-      return user.save()
+      return user.updateOne(user)
     })
     .then(() => res.status(200).json({ message: 'Utilisateur mis à jour !' }))
     .catch((error) => res.status(400).json({ error }))
