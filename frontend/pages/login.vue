@@ -55,6 +55,8 @@
 </template>
 
 <script setup>
+import { mapGetters } from 'vuex'
+
 export default {
   data: () => ({
     valid: false,
@@ -79,8 +81,24 @@ export default {
           email: this.email,
           password: this.password
         })
+        setTimeout(
+          function () {
+            this.redirect()
+          }.bind(this),
+          1000
+        )
+      }
+    },
+
+    redirect() {
+      if (this.getUserConnected) {
+        this.$router.push('/catalog')
       }
     }
+  },
+
+  computed: {
+    ...mapGetters(['getUserConnected'])
   }
 }
 </script>

@@ -18,6 +18,7 @@ export const getters = {
   getCurrentUser: (state) => state.currentUser,
   getUserConnected: (state) => state.isConnected,
   getToken: (state) => state.token,
+  getAuthenticated: (state) => !!state.token,
   getError: (state) => state.error,
   getErrorMessage: (state) => state.errorMessage,
   getSigninSuccess: (state) => state.signinSuccess
@@ -35,9 +36,9 @@ export const mutations = {
     state.error = false
     state.errorMessage = null
   },
-  setCurrentUser(state, data) {
-    state.currentUser = data.user
-    state.token = data.token
+  setCurrentUser(state, response) {
+    state.currentUser = response.data.user
+    state.token = response.data.token
     state.isConnected = true
   },
   newUserSignin(state) {
@@ -48,27 +49,34 @@ export const mutations = {
 export const actions = {
   // GET routes
   async getAllBooks({ commit }) {
-    commit('resetErrorLog')
-    await this.$axios
-      .get(booksAPI)
-      .then((data) => {
-        commit('setBooks', data)
-      })
-      .catch((error) => {
-        commit('errorLog', error)
-      })
+    if (this.getters.getAuthenticated) {
+      commit('resetErrorLog')
+      await this.$axios
+        .get(booksAPI)
+        .then((data) => {
+          commit('setBooks', data)
+        })
+        .catch((error) => {
+          commit('errorLog', error)
+        })
+    }
   },
   // POST routes
   async registerNewBook({ dispatch, commit }, payload) {
-    commit('resetErrorLog')
-    await this.$axios
-      .post(booksAPI, payload)
-      .then(() => {
-        dispatch('getAllBooks')
-      })
-      .catch((error) => {
-        commit('errorLog', error)
-      })
+    if (
+      this.getters.getAuthenticated &&
+      this.getters.getCurrentUser.role === 'employee'
+    ) {
+      commit('resetErrorLog')
+      await this.$axios
+        .post(booksAPI, payload)
+        .then(() => {
+          dispatch('getAllBooks')
+        })
+        .catch((error) => {
+          commit('errorLog', error)
+        })
+    }
   },
   async login({ commit }, payload) {
     commit('resetErrorLog')
@@ -78,7 +86,7 @@ export const actions = {
         commit('setCurrentUser', userData)
       })
       .catch((error) => {
-        commit('errorLog', error)
+        commit('errorLog', error.response.data.message)
       })
   },
   async signin({ commit }, payload) {

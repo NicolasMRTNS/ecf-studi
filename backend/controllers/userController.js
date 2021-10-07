@@ -19,7 +19,6 @@ exports.signin = (req, res, _next) => {
         .save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
         .catch((error) => {
-          console.log(error)
           res.status(400).json(error)
         })
     })
@@ -33,13 +32,18 @@ exports.login = (req, res, _next) => {
       if (!user) {
         return res
           .status(401)
-          .json({ error: 'E-mail non trouvé dans la base de données.' })
+          .json({ message: 'E-mail non trouvé dans la base de données.' })
+      }
+      if (user.role === 'not-validated-user') {
+        return res
+          .status(401)
+          .json({ message: "Votre compte n'a pas encore été validé." })
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).json({ error: 'Mot de passe incorrect !' })
+            return res.status(401).json({ message: 'Mot de passe incorrect.' })
           }
           res.status(200).json({
             user: user,

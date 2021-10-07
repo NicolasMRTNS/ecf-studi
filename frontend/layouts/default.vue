@@ -6,6 +6,9 @@
         >Votre inscription est bien enregistrée. Vous allez être
         redirigé.</AppToast
       >
+      <AppToast v-if="getUserConnected" :success="true"
+        >Vous êtes maintenant connecté.</AppToast
+      >
       <AppToast v-if="getError" :success="false">{{
         getErrorMessage
       }}</AppToast>
@@ -22,6 +25,8 @@ import AppToast from '@/components/AppToast'
 import AppFooter from '@/components/AppFooter'
 
 export default {
+  name: 'AppLayout',
+
   components: {
     AppMenu,
     AppToast,
@@ -29,7 +34,12 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getSigninSuccess', 'getError', 'getErrorMessage'])
+    ...mapGetters([
+      'getSigninSuccess',
+      'getUserConnected',
+      'getError',
+      'getErrorMessage'
+    ])
   }
 }
 </script>
