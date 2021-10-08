@@ -18,6 +18,12 @@
       <AppToast v-if="getBorrowBook" :success="true">
         {{ getBorrowBookMessage }}
       </AppToast>
+      <AppToast v-if="getRetrievedBook" :success="true">
+        {{ getRetrievedBookMessage }}
+      </AppToast>
+      <AppToast v-if="getReturnedBook" :success="true">
+        {{ getReturnedBookMessage }}
+      </AppToast>
       <AppToast v-if="getError" :success="false">{{
         getErrorMessage
       }}</AppToast>
@@ -52,6 +58,10 @@ export default {
       'getBookRegistered',
       'getBorrowBookMessage',
       'getBorrowBook',
+      'getRetrievedBookMessage',
+      'getRetrievedBook',
+      'getReturnedBookMessage',
+      'getReturnedBook',
       'getError',
       'getErrorMessage'
     ])

@@ -13,6 +13,7 @@ const bookSchema = new mongoose.Schema({
   borrowConfirmed: { type: Boolean, required: false, default: false },
   borrowedBy: { type: String, required: false, default: null },
   retrievedDate: { type: Date, required: false, default: null },
+  retrieveConfirmedBy: { type: String, required: false, default: null },
   dueDate: { type: Date, required: false, default: null }
 })
 

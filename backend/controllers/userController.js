@@ -1,7 +1,6 @@
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const mongoose = require('mongoose')
 
 // GET not validated users
 exports.getNotValidatedUsers = (_req, res, _next) => {
@@ -67,7 +66,7 @@ exports.login = (req, res, _next) => {
 
 // PUT update user
 exports.update = (req, res, _next) => {
-  User.findById({ _id: mongoose.mongo.ObjectId(req.body.userId) })
+  User.findById(req.body.userId)
     .then((user) => {
       user.role = 'user'
       return user.updateOne(user)

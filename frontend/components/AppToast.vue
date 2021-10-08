@@ -1,13 +1,6 @@
 <template>
-  <v-alert
-    v-if="!closeAlert"
-    outlined
-    :type="success ? 'success' : 'error'"
-    text
-    @click="close()"
-  >
+  <v-alert dismissible :type="success ? 'success' : 'error'" text>
     <slot></slot>
-    (Cliquer pour faire disparaître)
   </v-alert>
 </template>
 
@@ -15,22 +8,10 @@
 export default {
   name: 'AppToast',
 
-  data() {
-    return {
-      closeAlert: false
-    }
-  },
-
   props: {
     success: {
       type: Boolean,
       required: true
-    }
-  },
-
-  methods: {
-    close() {
-      this.closeAlert = !this.closeAlert
     }
   }
 }

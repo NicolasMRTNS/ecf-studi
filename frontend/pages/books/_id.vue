@@ -148,7 +148,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getBooks', 'getCurrentUser']),
+    ...mapGetters(['getBooks', 'getCurrentUser', 'getAuthenticated']),
 
     currentBook() {
       let result
@@ -165,19 +165,54 @@ export default {
 
   methods: {
     borrowBook() {
-      const payload = {
-        bookId: this.id,
-        userId: this.getCurrentUser._id
+      if (this.getAuthenticated && this.getCurrentUser.role === 'user') {
+        const payload = {
+          bookId: this.id,
+          userId: this.getCurrentUser._id
+        }
+        this.$store.dispatch('borrowBook', payload)
+        setTimeout(
+          function () {
+            this.redirect('catalog')
+          }.bind(this),
+          1000
+        )
       }
-      this.$store.dispatch('borrowBook', payload)
     },
 
     confirmBorrowBook() {
-      this.$store.dispatch('confirmBorrowBook', this.id)
+      if (this.getAuthenticated && this.getCurrentUser.role === 'employee') {
+        const payload = {
+          bookId: this.id,
+          employeeId: this.getCurrentUser._id
+        }
+        this.$store.dispatch('confirmBorrowBook', payload)
+        setTimeout(
+          function () {
+            this.redirect('borrowed')
+          }.bind(this),
+          1000
+        )
+      }
     },
 
     confirmBookReturned() {
-      this.$store.dispatch('confirmBookReturned', this.id)
+      if (this.getAuthenticated && this.getCurrentUser.role === 'employee') {
+        const payload = {
+          bookId: this.id
+        }
+        this.$store.dispatch('confirmBookReturned', payload)
+        setTimeout(
+          function () {
+            this.redirect('borrowed')
+          }.bind(this),
+          1000
+        )
+      }
+    },
+
+    redirect(page) {
+      this.$router.push(`/${page}`)
     }
   }
 }

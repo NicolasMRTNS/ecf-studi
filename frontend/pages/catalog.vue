@@ -84,11 +84,13 @@ export default {
     AppBookDisplay
   },
 
-  data: () => ({
-    category: '',
-    titleSearch: '',
-    bookSelection: []
-  }),
+  data() {
+    return {
+      category: '',
+      titleSearch: '',
+      bookSelection: []
+    }
+  },
 
   mounted() {
     this.$store.dispatch('getAllBooks')

@@ -52,8 +52,14 @@
               "
               >À rendre le {{ $moment(book.dueDate).format('LL') }}</v-card-text
             >
-            <v-card-text v-if="borrowedpage && book.borrowedDate != null">
-              À récupérer avant le
+            <v-card-text
+              v-if="
+                borrowedpage &&
+                book.borrowedDate != null &&
+                !book.borrowConfirmed
+              "
+            >
+              À retirer avant le
               {{ $moment(book.borrowedDate).add(3, 'days').format('LL') }}
             </v-card-text>
             <v-spacer></v-spacer>
