@@ -66,7 +66,7 @@ exports.login = (req, res, _next) => {
 
 // PUT update user
 exports.update = (req, res, _next) => {
-  User.findById(req.body.userId)
+  User.findById(req.body.userIdConfirm)
     .then((user) => {
       user.role = 'user'
       return user.updateOne(user)

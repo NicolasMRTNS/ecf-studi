@@ -48,7 +48,7 @@ exports.retrieveBook = (req, res, _next) => {
     .then((book) => {
       book.retrievedDate = moment().format('YYYY-MM-DD')
       book.borrowConfirmed = true
-      book.retrieveConfirmedBy = req.body.employeeId
+      book.retrieveConfirmedBy = req.body.userId
       book.dueDate = moment().add(3, 'weeks').format('YYYY-MM-DD')
       return book.updateOne(book)
     })

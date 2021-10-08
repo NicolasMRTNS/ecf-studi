@@ -61,6 +61,8 @@ export const mutations = {
     state.userValidatedMessage = ''
     state.bookRegisteredMessage = ''
     state.borrowBookMessage = ''
+    state.retrievedBookMessage = ''
+    state.returnedBookMessage = ''
   },
   setCurrentUser(state, response) {
     state.currentUser = response.data.user
@@ -90,7 +92,12 @@ export const actions = {
     if (this.getters.getAuthenticated) {
       commit('resetErrorLog')
       await this.$axios
-        .get(booksAPI)
+        .get(booksAPI, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((data) => {
           commit('setBooks', data)
         })
@@ -106,7 +113,12 @@ export const actions = {
     ) {
       commit('resetErrorLog')
       await this.$axios
-        .get(`${usersAPI}/notvalidatedusers`)
+        .get(`${usersAPI}/notvalidatedusers`, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((data) => {
           commit('setNotValidatedUsers', data)
         })
@@ -124,7 +136,12 @@ export const actions = {
     ) {
       commit('resetErrorLog')
       await this.$axios
-        .post(booksAPI, payload)
+        .post(booksAPI, payload, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((response) => {
           commit('setBookRegistered', response)
           dispatch('getAllBooks')
@@ -162,14 +179,19 @@ export const actions = {
       })
   },
   // PUT routes
-  async validateSignin({ commit, dispatch }, userId) {
+  async validateSignin({ commit, dispatch }, payload) {
     if (
       this.getters.getAuthenticated &&
       this.getters.getCurrentUser.role === 'employee'
     ) {
       commit('resetErrorLog')
       await this.$axios
-        .put(`${usersAPI}/${userId}/update`, { userId })
+        .put(`${usersAPI}/${payload}/update`, payload, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((response) => {
           dispatch('getNotValidatedUsers')
           commit('setUserValidated', response)
@@ -183,7 +205,12 @@ export const actions = {
     if (this.getters.getAuthenticated) {
       commit('resetErrorLog')
       await this.$axios
-        .put(`${booksAPI}/${payload.bookId}/borrow`, payload)
+        .put(`${booksAPI}/${payload.bookId}/borrow`, payload, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((response) => {
           dispatch('getAllBooks')
           commit('setBorrowBookConfirmed', response)
@@ -200,7 +227,12 @@ export const actions = {
     ) {
       commit('resetErrorLog')
       await this.$axios
-        .put(`${booksAPI}/${payload.bookId}/retrieve`, payload)
+        .put(`${booksAPI}/${payload.bookId}/retrieve`, payload, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((response) => {
           dispatch('getAllBooks')
           commit('setBorrowBookRetrieved', response)
@@ -217,7 +249,12 @@ export const actions = {
     ) {
       commit('resetErrorLog')
       await this.$axios
-        .put(`${booksAPI}/${payload.bookId}/return`, payload)
+        .put(`${booksAPI}/${payload.bookId}/return`, payload, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
         .then((response) => {
           dispatch('getAllBooks')
           commit('setBorrowBookReturned', response)
