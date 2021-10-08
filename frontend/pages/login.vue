@@ -74,6 +74,12 @@ export default {
     ]
   }),
 
+  mounted() {
+    if (this.getUserConnected) {
+      this.$router.push('/')
+    }
+  },
+
   methods: {
     validate() {
       if (this.valid) {

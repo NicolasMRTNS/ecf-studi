@@ -165,6 +165,12 @@ export default {
     ]
   }),
 
+  mounted() {
+    if (this.getUserConnected) {
+      this.$router.push('/')
+    }
+  },
+
   computed: {
     ...mapGetters(['getSigninSuccess']),
 
