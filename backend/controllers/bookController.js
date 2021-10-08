@@ -2,7 +2,28 @@ const Book = require('../models/Book')
 const moment = require('moment')
 
 // GET /books
-exports.getAllBooks = (_req, res, _next) => {
+exports.getAllBooks = (_req, res, next) => {
+  Book.find()
+    .then((books) => {
+      books.forEach((book) => {
+        if (
+          moment(book.borrowedDate).add(3, 'days').unix() <= moment().unix()
+        ) {
+          Book.findById(book._id)
+            .then((book) => {
+              book.borrowedDate = null
+              book.available = true
+              book.borrowedBy = null
+              return book.updateOne(book)
+            })
+            .then(() => {
+              next()
+            })
+            .catch((error) => res.status(500).json({ error }))
+        }
+      })
+    })
+    .catch((error) => res.status(500).json({ error }))
   Book.find()
     .then((books) => {
       res.status(200).json(books)
@@ -14,7 +35,7 @@ exports.getAllBooks = (_req, res, _next) => {
 exports.registerBook = (req, res, _next) => {
   const book = new Book({
     ...req.body,
-    addedDate: moment().format('DD/MM/YYYY'),
+    addedDate: moment().format('YYYY-MM-DD'),
     cover: `${req.protocol}://${req.get('host')}/covers/${req.file.filename}`
   })
   return book

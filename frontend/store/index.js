@@ -90,7 +90,6 @@ export const actions = {
   // GET routes
   async getAllBooks({ commit }) {
     if (this.getters.getAuthenticated) {
-      commit('resetErrorLog')
       await this.$axios
         .get(booksAPI, {
           headers: {

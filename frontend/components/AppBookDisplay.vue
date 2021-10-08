@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row dense>
+    <v-row v-if="bookselection.length !== 0" dense>
       <v-col
         v-for="book in bookselection"
         :key="book.id"
@@ -77,6 +77,9 @@
         </v-card>
       </v-col>
     </v-row>
+    <v-card v-else-if="bookselection.length === 0 && borrowedpage">
+      <v-card-text class="text-center">Aucun emprunt à votre nom.</v-card-text>
+    </v-card>
   </v-container>
 </template>
 
