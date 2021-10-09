@@ -14,7 +14,9 @@
             <v-img
               :src="book.cover"
               :alt="`Couverture de ${book.title}`"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+              :gradient="
+                book.available ? '' : 'to top, rgba(0,0,0,.33), rgba(0,0,0,.7)'
+              "
               height="200px"
               max-width="150px"
               class="ml-2"
@@ -40,8 +42,8 @@
           <v-card-actions>
             <v-card-text
               v-if="!book.available && borrowedpage === false"
-              class="py-0 warning--text"
-              >Ouvrage indisponible</v-card-text
+              class="py-0 pl-0 warning--text"
+              >Indisponible</v-card-text
             >
             <v-card-text
               v-if="borrowedpage && book.borrowConfirmed"
@@ -50,7 +52,9 @@
                   ? 'warning--text'
                   : 'white--text'
               "
-              >À rendre le {{ $moment(book.dueDate).format('LL') }}</v-card-text
+              class="pl-0"
+              >À rendre avant le
+              {{ $moment(book.dueDate).format('LL') }}</v-card-text
             >
             <v-card-text
               v-if="
@@ -58,6 +62,7 @@
                 book.borrowedDate != null &&
                 !book.borrowConfirmed
               "
+              class="pl-0"
             >
               À retirer avant le
               {{ $moment(book.borrowedDate).add(3, 'days').format('LL') }}
@@ -65,11 +70,11 @@
             <v-spacer></v-spacer>
             <v-tooltip bottom>
               <template #activator="{ on, attrs }">
-                <v-btn color="primary" v-bind="attrs" v-on="on"
-                  ><nuxt-link :to="`/books/${book._id}`" class="white--text">
+                <nuxt-link :to="`/books/${book._id}`" class="white--text">
+                  <v-btn color="primary" v-bind="attrs" v-on="on">
                     Voir l'ouvrage
-                  </nuxt-link>
-                </v-btn>
+                  </v-btn>
+                </nuxt-link>
               </template>
               <span>Voir l'ouvrage</span>
             </v-tooltip>

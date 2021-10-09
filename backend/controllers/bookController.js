@@ -6,9 +6,7 @@ exports.getAllBooks = (_req, res, next) => {
   Book.find()
     .then((books) => {
       books.forEach((book) => {
-        if (
-          moment(book.borrowedDate).add(3, 'days').unix() <= moment().unix()
-        ) {
+        if (moment(book.borrowedDate).add(3, 'days').unix() < moment().unix()) {
           Book.findById(book._id)
             .then((book) => {
               book.borrowedDate = null

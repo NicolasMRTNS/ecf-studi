@@ -1,5 +1,10 @@
 <template>
-  <v-alert dismissible :type="success ? 'success' : 'error'" text>
+  <v-alert
+    dismissible
+    :type="success ? 'success' : 'error'"
+    text
+    transition="scale-transition"
+  >
     <slot></slot>
   </v-alert>
 </template>

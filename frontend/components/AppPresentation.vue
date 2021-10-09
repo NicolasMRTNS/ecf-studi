@@ -9,11 +9,10 @@
     <v-card-text>
       Pour pouvoir créer un compte, c'est très simple : il vous suffit de
       remplir le formulaire ci-dessous. <br />
-      <v-btn color="primary"
-        ><nuxt-link exact to="/signin" class="white--text"
-          >Créer mon compte</nuxt-link
-        ></v-btn
-      ><br />
+      <nuxt-link exact to="/signin" class="white--text">
+        <v-btn color="primary"> Créer mon compte </v-btn>
+      </nuxt-link>
+      <br />
       Une fois votre inscription validée, vous recevrez un email de
       confirmation.
     </v-card-text>
@@ -26,11 +25,10 @@
     >
     <v-card-text
       >Connectez-vous grâce au bouton ci-dessous <br />
-      <v-btn color="primary"
-        ><nuxt-link exact to="/login" class="white--text"
-          >Connexion</nuxt-link
-        ></v-btn
-      ><br />
+      <nuxt-link exact to="/login" class="white--text">
+        <v-btn color="primary"> Connexion </v-btn>
+      </nuxt-link>
+      <br />
       Une fois connecté, vous pourrez accéder au catalogue de la médiathèque et
       réserver des ouvrages.
     </v-card-text>
