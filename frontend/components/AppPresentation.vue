@@ -13,8 +13,8 @@
         <v-btn color="primary"> Créer mon compte </v-btn>
       </nuxt-link>
       <br />
-      Une fois votre inscription validée, vous recevrez un email de
-      confirmation.
+      Une fois votre inscription validée par un employé de la médiathèque, vous
+      pourrez vous connecter.
     </v-card-text>
     <v-divider></v-divider>
     <v-card-title

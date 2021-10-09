@@ -83,6 +83,11 @@ export const mutations = {
   },
   newUserSignin(state) {
     state.signinSuccess = true
+  },
+  disconnect(state) {
+    state.isConnected = false
+    state.token = null
+    state.currentUser = {}
   }
 }
 

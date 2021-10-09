@@ -6,7 +6,7 @@
           Menu Médiathèque
         </v-btn>
       </template>
-      <v-list>
+      <v-list class="text-center">
         <v-list-item
           v-for="(link, i) in getUserConnected
             ? connectedLinks
@@ -39,6 +39,15 @@
               to="/validatesignins"
               class="white--text text-decoration-underline"
               >Valider inscriptions</nuxt-link
+            ></v-list-item-title
+          >
+        </v-list-item>
+        <v-list-item v-if="getUserConnected">
+          <v-list-item-title
+            ><v-btn
+              class="white--text text-decoration-underline"
+              @click="disconnect"
+              >Se déconnecter</v-btn
             ></v-list-item-title
           >
         </v-list-item>
@@ -88,6 +97,13 @@ export default {
 
   computed: {
     ...mapGetters(['getUserConnected', 'getCurrentUser'])
+  },
+
+  methods: {
+    disconnect() {
+      this.$store.commit('disconnect')
+      this.$router.push('/')
+    }
   }
 }
 </script>
