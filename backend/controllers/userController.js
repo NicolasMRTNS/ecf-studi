@@ -66,11 +66,26 @@ exports.login = (req, res, _next) => {
 
 // PUT update user
 exports.update = (req, res, _next) => {
-  User.findById(req.body.userIdConfirm)
+  User.findById(req.body.userIdConfirmed)
     .then((user) => {
       user.role = 'user'
       return user.updateOne(user)
     })
     .then(() => res.status(200).json({ message: 'Utilisateur mis à jour !' }))
     .catch((error) => res.status(400).json({ error }))
+}
+
+// DELETE delete user
+exports.deleteUser = (req, res, _next) => {
+  User.findById(req.body.userIdDeleted)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: 'Utilisateur non trouvé !' })
+      }
+      if (user.role === 'not-validated-user') return user.deleteOne()
+    })
+    .then(() =>
+      res.status(200).json({ message: 'Utilisateur supprimé avvec succès.' })
+    )
+    .catch((error) => res.status(500).json({ error }))
 }

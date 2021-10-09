@@ -24,6 +24,9 @@
       <AppToast v-if="getReturnedBook" :success="true">
         {{ getReturnedBookMessage }}
       </AppToast>
+      <AppToast v-if="getUserDeleted" :success="true">
+        {{ getUserDeletedMessage }}
+      </AppToast>
       <AppToast v-if="getError" :success="false">{{
         getErrorMessage
       }}</AppToast>
@@ -62,6 +65,8 @@ export default {
       'getRetrievedBook',
       'getReturnedBookMessage',
       'getReturnedBook',
+      'getUserDeletedMessage',
+      'getUserDeleted',
       'getError',
       'getErrorMessage'
     ])

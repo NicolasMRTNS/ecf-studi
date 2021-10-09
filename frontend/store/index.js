@@ -15,7 +15,8 @@ export const state = () => ({
   bookRegisteredMessage: '',
   borrowBookMessage: '',
   retrievedBookMessage: '',
-  returnedBookMessage: ''
+  returnedBookMessage: '',
+  userDeletedMessage: ''
 })
 
 export const getters = {
@@ -38,7 +39,9 @@ export const getters = {
   getRetrievedBookMessage: (state) => state.retrievedBookMessage,
   getRetrievedBook: (state) => !!state.retrievedBookMessage,
   getReturnedBookMessage: (state) => state.returnedBookMessage,
-  getReturnedBook: (state) => !!state.returnedBookMessage
+  getReturnedBook: (state) => !!state.returnedBookMessage,
+  getUserDeletedMessage: (state) => state.userDeletedMessage,
+  getUserDeleted: (state) => !!state.userDeletedMessage
 }
 
 export const mutations = {
@@ -80,6 +83,9 @@ export const mutations = {
   },
   setBorrowBookReturned(state, response) {
     state.returnedBookMessage = response.data.message
+  },
+  setUserDeleted(state, response) {
+    state.userDeletedMessage = response.data.message
   },
   newUserSignin(state) {
     state.signinSuccess = true
@@ -190,7 +196,7 @@ export const actions = {
     ) {
       commit('resetErrorLog')
       await this.$axios
-        .put(`${usersAPI}/${payload}/update`, payload, {
+        .put(`${usersAPI}/${payload.userIdConfirmed}/update`, payload, {
           headers: {
             Authorization: `Bearer ${this.getters.getToken}`,
             uid: this.getters.getCurrentUser._id
@@ -262,6 +268,32 @@ export const actions = {
         .then((response) => {
           dispatch('getAllBooks')
           commit('setBorrowBookReturned', response)
+        })
+        .catch((error) => {
+          commit('errorLog', error.response.data.message)
+        })
+    }
+  },
+  // DELETE routes
+  async deleteUser({ commit, dispatch }, payload) {
+    if (
+      this.getters.getAuthenticated &&
+      this.getters.getCurrentUser.role === 'employee'
+    ) {
+      commit('resetErrorLog')
+      await this.$axios
+        .delete(`${usersAPI}/${payload.userIdDeleted}/delete`, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          },
+          data: {
+            userIdDeleted: payload.userIdDeleted
+          }
+        })
+        .then((response) => {
+          dispatch('getNotValidatedUsers')
+          commit('setUserDeleted', response)
         })
         .catch((error) => {
           commit('errorLog', error.response.data.message)

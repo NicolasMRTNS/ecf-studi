@@ -7,5 +7,6 @@ router.get('/notvalidatedusers', auth, userController.getNotValidatedUsers)
 router.post('/signin', userController.signin)
 router.post('/login', userController.login)
 router.put('/:id/update', auth, userController.update)
+router.delete('/:id/delete', auth, userController.deleteUser)
 
 module.exports = router
