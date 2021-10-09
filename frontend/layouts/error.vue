@@ -1,36 +1,34 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error.statusCode === 404">
-      {{ pageNotFound }}
-    </h1>
-    <h1 v-else>
-      {{ otherError }}
-    </h1>
-    <NuxtLink to="/"> Home page </NuxtLink>
-  </v-app>
+  <v-container fluid>
+    <v-card class="text-center">
+      <h1 v-if="error">Une erreur est survenue.</h1>
+      <v-card-text
+        >Une erreur est survenue, vous pouvez revenir à la page d'accueil en
+        cliquant sur le lien suivant :
+        <nuxt-link exact to="/"> Page d'accueil. </nuxt-link><br />
+        Vous serez automatiquement redirigé vers la page d'accueil dans quelques
+        secondes.
+      </v-card-text>
+    </v-card>
+  </v-container>
 </template>
 
 <script>
 export default {
-  layout: 'empty',
+  layout: 'AppLayout',
   props: {
     error: {
       type: Object,
       default: null
     }
   },
-  data() {
-    return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
-    }
-  },
-  head() {
-    const title =
-      this.error.statusCode === 404 ? this.pageNotFound : this.otherError
-    return {
-      title
-    }
+  mounted() {
+    setTimeout(
+      function () {
+        this.$router.push('/')
+      }.bind(this),
+      5000
+    )
   }
 }
 </script>
