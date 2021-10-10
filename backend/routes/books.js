@@ -6,6 +6,7 @@ const bookController = require('../controllers/bookController')
 
 router.get('/', auth, bookController.getAllBooks)
 router.post('/', auth, multer, bookController.registerBook)
+router.post('/inject', auth, bookController.injectToDatabase)
 router.put('/:id/borrow', auth, bookController.borrowBook)
 router.put('/:id/retrieve', auth, bookController.retrieveBook)
 router.put('/:id/return', auth, bookController.returnBook)

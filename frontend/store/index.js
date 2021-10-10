@@ -188,6 +188,29 @@ export const actions = {
         }
       })
   },
+  async injectToDatabase({ commit, dispatch }, payload) {
+    if (
+      this.getters.getAuthenticated &&
+      this.getters.getCurrentUser.role === 'employee' &&
+      process.env.env === 'DEV'
+    ) {
+      commit('resetErrorLog')
+      await this.$axios
+        .post(`${booksAPI}/inject`, payload, {
+          headers: {
+            Authorization: `Bearer ${this.getters.getToken}`,
+            uid: this.getters.getCurrentUser._id
+          }
+        })
+        .then((response) => {
+          dispatch('getAllBooks', response)
+        })
+        .catch((error) => {
+          commit('errorLog', error)
+        })
+    }
+  },
+
   // PUT routes
   async validateSignin({ commit, dispatch }, payload) {
     if (

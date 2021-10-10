@@ -1,5 +1,6 @@
 const Book = require('../models/Book')
 const moment = require('moment')
+const books = require('../booksDatabaseInjection')
 
 // GET /books
 exports.getAllBooks = (_req, res, next) => {
@@ -40,6 +41,21 @@ exports.registerBook = (req, res, _next) => {
     .save()
     .then(() => {
       res.status(201).json({ message: 'Ouvrage enregistré avec succès' })
+    })
+    .catch((error) => {
+      res.status(500).json({ error })
+    })
+}
+
+exports.injectToDatabase = (_req, res, _next) => {
+  const booksArray = []
+  for (const newBook of books) {
+    const newBookModel = new Book({ ...newBook })
+    booksArray.push(newBookModel)
+  }
+  return Book.insertMany(booksArray)
+    .then(() => {
+      res.status(201).json({ message: 'Ouvrages enregistrés avec succès' })
     })
     .catch((error) => {
       res.status(500).json({ error })

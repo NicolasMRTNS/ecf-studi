@@ -51,6 +51,21 @@
             ></v-list-item-title
           >
         </v-list-item>
+        <v-list-item
+          v-if="
+            getUserConnected && getCurrentUser.role === 'employee' && isDevEnv
+          "
+        >
+          <v-list-item-title>
+            <v-btn
+              class="white--text text-decoration-underline"
+              color="warning"
+              @click="injectToDatabase"
+            >
+              Injecter données
+            </v-btn>
+          </v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
   </v-card>
@@ -91,7 +106,8 @@ export default {
           name: 'Emprunts',
           page: '/borrowed'
         }
-      ]
+      ],
+      isDevEnv: process.env.env === 'DEV'
     }
   },
 
@@ -103,6 +119,9 @@ export default {
     disconnect() {
       this.$store.commit('disconnect')
       this.$router.push('/')
+    },
+    injectToDatabase() {
+      this.$store.dispatch('injectToDatabase')
     }
   }
 }

@@ -65,6 +65,10 @@ export default {
     baseURL: process.env.API_URL
   },
 
+  env: {
+    env: process.env.FRONT_DEV_ENV
+  },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: [],
