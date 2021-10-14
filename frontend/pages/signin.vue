@@ -9,7 +9,7 @@
       >Merci de bien vouloir remplir le formulaire ci-dessous pour vous
       inscrire</v-card-text
     >
-    <v-form ref="format" v-model="valid">
+    <v-form ref="form" v-model="valid">
       <v-container>
         <v-row>
           <v-col cols="12" md="4">

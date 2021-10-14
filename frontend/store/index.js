@@ -94,6 +94,7 @@ export const mutations = {
     state.isConnected = false
     state.token = null
     state.currentUser = {}
+    state.signinSuccess = false
   }
 }
 
