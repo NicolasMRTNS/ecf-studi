@@ -2,7 +2,14 @@ const booksAPI = '/api/books'
 const usersAPI = '/api/users'
 
 export const state = () => ({
-  categories: ['Roman', 'Bande dessinés', 'Manga', 'Comics'],
+  categories: [
+    'Roman',
+    'Bande dessinée',
+    'Manga',
+    'Comics',
+    'Album jeunesse',
+    'Roman graphique'
+  ],
   books: [],
   currentUser: {},
   notValidatedUsers: [],
