@@ -22,7 +22,7 @@ FRONT_DEV_ENV=DEV
 In backend, add:
 
 ```bash
-MONGO_ATLAS_URL=mongodb+srv://nicolas:NNqFICg6pBaahBxH@clusternm.fatfv.mongodb.net/mediatheque?retryWrites=true&w=majority
+MONGO_ATLAS_URL=ASK_ME
 FRONT_URL=http://localhost:3000
 ```
 
